@@ -295,14 +295,16 @@ class MainWindow(QMainWindow):
         self.is_recording = False  # 是否正式记录数据
         self.initialized = False  # 是否已完成初始化
 
-        # marker存储列表
-        self.markers = []  # 存储格式: [(marker_name, elapsed_time), ...]
-        self.current_cycle_markers = []  # 当前循环的marker存储
-        self.current_phase = 1  # 当前实验阶段：1或2
-        self.video_count = 0  # 视频计数器
+        # # marker存储列表
+        # self.markers = []  # 存储格式: [(marker_name, elapsed_time), ...]
+        # self.current_cycle_markers = []  # 当前循环的marker存储
+        # self.current_phase = 1  # 当前实验阶段：1或2
+        # self.video_count = 0  # 视频计数器
 
         # 新增：实验人数设置（1或2）
-        self.subject_count = 2  # 默认2人
+        # self.subject_count = 1  # 默认1人
+
+        self.Heart_rate = 0  # 心率属性
 
         # 实验信号采集设置
         self.ecg_channel = False  # ECG通道
@@ -581,6 +583,8 @@ class MainWindow(QMainWindow):
         self.emg_checkbox = QCheckBox("EMG")
         # self.gsr_checkbox = QCheckBox("GSR")
 
+
+
         self.ecg_checkbox.setChecked(False)
         self.emg_checkbox.setChecked(False)
         # self.gsr_checkbox.setChecked(False)
@@ -589,8 +593,16 @@ class MainWindow(QMainWindow):
         self.emg_checkbox.stateChanged.connect(self.EMG_channel_changed)
         # self.gsr_checkbox.stateChanged.connect(self.GSR_channel_changed)
 
+
+        # 心率显示标签
+        self.heart_rate_qlabel = QLabel(f"心率:{self.Heart_rate} bpm")
+        self.heart_rate_qlabel.setFixedWidth(100)
+
+
+        # 添加到模块布局
         module_layout.addWidget(self.ecg_checkbox)
         module_layout.addWidget(self.emg_checkbox)
+        module_layout.addWidget(self.heart_rate_qlabel)
         # module_layout.addWidget(self.gsr_checkbox)
 
 
